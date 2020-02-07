@@ -1,21 +1,31 @@
 import React, {Component} from 'react';
-// import Product from './Components/Product/Product';
+import Product from './Components/Product/Product';
 
 
-export default class Dashboard extends Component {
-    // constructor(productData) {
-    //     super(productData);
+export default function Dashboard() {
+   
+    deleteItem = id => {
+        axios
+          .delete(`/api/products/${id}`)
+          .then(res => {
+           this.props.didMount()
+          )}
 
-    //     this.state = {
-    //         child: 'Product'
-    //     };
-    // }
+      };
+
     render() {
-        return(
-            <div>
-                Dashboard
-                {/* <Product child={this.state.child} /> */}
-            </div>
+        let { myInventory } = this.props
+        return( 
+            <div> {this.props.myInventory.map(obj => {
+                return (
+                <div>
+             < Product obj={obj} deleteProduct={this.deleteProduct}/>
+               </div> ) 
+            }
+            )
+            }
+               </div>
         );
     }
 }
+
